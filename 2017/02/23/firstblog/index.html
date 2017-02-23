@@ -1,0 +1,425 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Peilun">
+  
+  
+  
+  
+    <meta name="description" content="手把手教你写轮播">
+  
+  <title>Jquery之轮播插件 [ 阿伦的前端之路 ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2017/02/23/hello-world/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Hello World
+      </div>
+    </div>
+  
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="https://avatars3.githubusercontent.com/u/19360591?v=3&u=40076e1876d8a6c4659a80b37f6b3ecf550c44fb&s=400"/>
+          <div id="homelink">阿伦的前端之路</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/">首页</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">文章</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">标签</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">分类</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">关于</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="https://github.com/alarea1">Github</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>Jquery之轮播插件</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2017-02-23</span>
+      
+        <span id = "post-title-updated">修改于 2017-02-23</span>
+      
+      
+      <span id = "post-title-categories">分类
+      
+      
+        
+        
+        <a href="/categories/jQuery/">jQuery</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      标签
+      
+      
+        
+        
+        <a href="/tags/jQuery/">jQuery</a>
+      
+      </span>
+      
+    </p>
+    
+    <p><strong>轮播插件是js最常见的插件之一，本次试验，加入的需求有</strong><br><em>自动播放模式</em><br><em>pre next摁键查看====》2000ms后恢复自动播放模式</em><br><em>跳转模式：点击页面下方预览栏，点击后高亮，之间跳转对应图片， 2000ms后恢复自动播放模式</em><br><a id="more"></a></p>
+<h2 id="1-let’s-shit-out-of-this"><a href="#1-let’s-shit-out-of-this" class="headerlink" title="1.let’s shit out of this!"></a>1.let’s shit out of this!</h2><h3 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h3><p>想象你通过一扇窗户观察外面跑过的列车，列车可以左右通过，你通过摁键控制火车方向，这里火车就是拍成一排的图片，窗户就是我们观察的实际页面窗口。这里有一个问题：为了满足循环播放，照片不可能是无限长度。<br>解决方法有2:<br>1.操作dom元素，将最后一张图片遍历后移到第一张图片之前，依次类推，但问题是重新绘制dom造成网页刷新，得不偿失。<br>2.将最后一张图片复制到第一张图片之前，原来第一张图片到最后一张图片之后，然后我们制造一个标志位：currentPage 并计数，当点击nextBt，则+1，反之则-1，当到达边界图片时，先显示我们的复制图片，然后直接操作dom元素的css瞬间位移到初始正确位置。<br><em>搞定</em></p>
+<h2 id="2-what-it-looks-like？"><a href="#2-what-it-looks-like？" class="headerlink" title="2.what it looks like？"></a>2.what it looks like？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">talk is cheap，lets shit the code</div></pre></td></tr></table></figure>
+<p><em>基本页面结构如下</em><br>    <body><br>    <div class="carousel-ct"><br>        <ul class="carousel"><br>            <li><br>                <a href="#"><img src="./img/1.jpg" alt=""></a><br>            </li><br>            <li><br>                <a href="#"><img src="./img/2.jpg" alt=""></a><br>            </li><br>            <li><br>                <a href="#"><img src="./img/3.jpg" alt=""></a><br>            </li><br>            <li><br>                <a href="#"><img src="./img/4.jpg" alt=""></a><br>            </li><br>            <li><br>                <a href="#"><img src="./img/5.jpg" alt=""></a><br>            </li><br>            <li><br>                <a href="#"><img src="./img/6.jpg" alt=""></a><br>            </li><br>        </ul><br>        <ul class="thumbnail"><br>            <li class="active"><img src="./img/thumbnail/1.jpg" alt=""></li><br>            <li><img src="./img/thumbnail/2.jpg" alt=""></li><br>            <li><img src="./img/thumbnail/3.jpg" alt=""></li><br>            <li><img src="./img/thumbnail/4.jpg" alt=""></li><br>            <li><img src="./img/thumbnail/5.jpg" alt=""></li><br>            <li><img src="./img/thumbnail/6.jpg" alt=""></li><br>        </ul><br>        <a href="" class="btnpre"><i class="fa fa-chevron-left" aria-hidden="true"></i></a><br>        <a href="" class="btnnext"><i class="fa fa-chevron-right" aria-hidden="true"></i></a><br>       </div><br><em>css重要部分（完整部分见下文git链接）：其实虽然也没什么可重要的。。。照屏幕调试而已</em><br>    .carousel-ct{<br>        width: 1000px;<br>        overflow: hidden;<br>        margin:0 auto;<br>        position:relative;<br>        height:560px;<br>    }<br>    .carousel{<br>        width: 6000px;<br>        position:absolute;<br>    }<br>    .carousel&gt;li {<br>        float: left;<br>    }<br>    .carousel img{<br>        width:1000px;<br>    }<br>    .thumbnail{<br>        width: 610px;<br>        position:absolute;<br>        left:50%;<br>        bottom:0px;<br>        transform: translateX(-50%);<br>        z-index:10;</body></p>
+<pre><code>}
+
+.thumbnail&gt;li{
+    display: inline-block;
+    opacity: 0.5;
+    cursor: progress;
+}
+.thumbnail&gt;li:hover{
+      opacity: 1;
+}
+.thumbnail&gt;li&gt;img{
+    width:80px;
+}
+.active{
+    opacity: 1 !important;
+}
+</code></pre><p><em>重点来了！js中的前进，后退，自动播放功能函数</em></p>
+<pre><code>function playNext(){
+    $imgCt.animate({left:&apos;-=1000&apos;},
+        function(){
+            curPageIndex++;
+            thumbnail(curPageIndex);
+            if(curPageIndex===imgLength){
+                $imgCt.css({&apos;left&apos;:&apos;-1000px&apos;});
+                curPageIndex=0;
+            }
+        })
+}
+function playPre(){
+    $imgCt.animate({left:&apos;+=1000&apos;},
+        function(){
+            curPageIndex--;
+            thumbnail(curPageIndex);
+            if(curPageIndex&lt;0){
+                $imgCt.css({&apos;left&apos;:-(imgLength*$firstImg.width())});
+                curPageIndex=imgLength-1;
+            }
+        })
+}
+function autoplay(){
+ timer = setInterval(function(){playNext();},4000);
+</code></pre><p>}<br>    function stopAuto() {<br>                clearInterval(timer);<br>            }<br>    function remainplay(){<br>        setTimeout(function(){autoplay();},2000);<br>    }<br>    function thumbnail(index) {<br>                $thumbnail.children().removeClass(‘active’);<br>                $thumbnail.children().eq(index).addClass(‘active’);<br>            }</p>
+<h2 id="3-预览"><a href="#3-预览" class="headerlink" title="3.预览"></a>3.预览</h2><p><img src="http://upload-images.jianshu.io/upload_images/4289237-7aea27abbd500bf1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GitHub Mark" title="GitHub Mark"></p>
+<p>查看源码info: <a href="https://github.com/alarea1/carousel" target="_blank" rel="external">github</a><br>查看效果: <a href="https://jsbin.com/bevixusiqa/edit?html,output" target="_blank" rel="external">JSBIN</a></p>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-let’s-shit-out-of-this"><span class="toc-text">1.let’s shit out of this!</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-原理"><span class="toc-text">1.1 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-what-it-looks-like？"><span class="toc-text">2.what it looks like？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-预览"><span class="toc-text">3.预览</span></a></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+    <a href="/2017/02/23/hello-world/" class="prev">&larr; 上一篇 Hello World</a>
+  
+
+  
+
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Peilun using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="https://avatars3.githubusercontent.com/u/19360591?v=3&u=40076e1876d8a6c4659a80b37f6b3ecf550c44fb&s=400">
+    <p id="description">前端技术学习blog peilun Qi</p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/alarea1">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://coding.net/">
+        
+          <i class="icon iconfont coding">&#xe607;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="https://twitter.com/">
+        
+          <i class="icon iconfont twitter">&#xe600;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="http://weibo.com/">
+        
+          <i class="icon iconfont weibo">&#xe602;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="http://www.douban.com/">
+        
+          <i class="icon iconfont douban">&#xe60f;</i>
+        
+      </a>
+    </li>
+  
+    <li>
+      <a href="http://chensd.com/feed">
+        
+          <i class="icon iconfont rss">&#xe60e;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<div id="btn-view">Hide</div>
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+  <script>
+if(isTriggerAnalytics) {
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?true";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+}
+</script>
+
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
