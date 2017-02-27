@@ -16,11 +16,9 @@
   
   
   
-    <meta name="description" content="#简介及引言
-1.目的简单说就是html通过表单收集用户信息（即：不同类型数据）并提交后台服务器。
- 元素定义 HTML 表单，作为表单的外壳把用户输入的不同类型的数据提交到后台。">
+    <meta name="description" content="为了复习排序算法，重新使用javascript实现3种排序">
   
-  <title>HTML表单的简单用法 [ 阿伦的前端之路 ]</title>
+  <title>Javascript 基本功之排序算法 [ 阿伦的前端之路 ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -40,14 +38,23 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2017/02/01/blog3/">
+      <a href="/2017/02/23/firstblog/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        Javascript 基本功之排序算法
+        Jquery之轮播插件
       </div>
     </div>
   
+  
+    <div class="item next">
+      <a href="/2017/01/06/blog4/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        HTML表单的简单用法
+      </div>
+    </div>
   
 </div>
 <div id="outer-container" class="hide-area">
@@ -120,9 +127,9 @@
       
       
   <article id="post">
-    <h1>HTML表单的简单用法</h1>
+    <h1>Javascript 基本功之排序算法</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2017-01-06</span>
+      <span id = "post-title-date">撰写于 2017-02-01</span>
       
         <span id = "post-title-updated">修改于 2017-02-27</span>
       
@@ -134,55 +141,38 @@
       
         
         
-        <a href="/tags/HTML/">HTML</a>
+        <a href="/tags/Javascript/">Javascript</a>
       
       </span>
       
     </p>
     
-    <p>#简介及引言</p>
-<h1 id="1-目的"><a href="#1-目的" class="headerlink" title="1.目的"></a>1.目的</h1><p>简单说就是html通过表单收集用户信息（即：不同类型数据）并提交后台服务器。</p>
-<p><form> 元素定义 HTML 表单，作为表单的外壳把用户输入的不同类型的数据提交到后台。<br><a id="more"></a></form></p>
-<h1 id="2-HTML表单元素"><a href="#2-HTML表单元素" class="headerlink" title="2.HTML表单元素"></a>2.HTML表单元素</h1><p>HTML 表单包含<em>表单元素</em>。<br>表单元素指的是不同类型的 input 元素、复选框、单选按钮、提交按钮等等。<br>        脉络逻辑：<br>表单——————》重要元素——————》次级重要属性</p>
-<h3 id="2-1重要元素"><a href="#2-1重要元素" class="headerlink" title="2.1重要元素"></a>2.1重要元素</h3><p>  1.input元素<br>       （基本作用）——————》（属性）<br>             语法：<br>             <input type="👇的小选择" name="xxx" 其他属性blablabla="">XXX<br>            type 属性的有趣小选择<br>                          ——》text<br>                          ——》password</p>
-<pre><code>——》submit
-——》radio
-——》checkbox
-——》button
-</code></pre><p>  2.select元素和嵌套的option元素（可直接举例）</p>
-<pre><code>&lt;select name=&quot;cars&quot;&gt;
-&lt;option value=&quot;volvo&quot;&gt;Volvo&lt;/option&gt;
-&lt;option value=&quot;saab&quot;&gt;Saab&lt;/option&gt;
-&lt;option value=&quot;fiat&quot;&gt;Fiat&lt;/option&gt;
-&lt;option value=&quot;audi&quot;&gt;Audi&lt;/option&gt;
-&lt;/select&gt;
-</code></pre><p> 3.textarea元素（可直接举例）</p>
-<pre><code>&lt;textarea&gt; 元素定义多行输入字段（*文本域*）：
-&lt;textarea name=&quot;message&quot; rows=&quot;10&quot; cols=&quot;30&quot;&gt;
-The cat was playing in the garden.
-&lt;/textarea&gt;
-</code></pre><p> 4.button元素（可直接举例）</p>
-<pre><code>&lt;button type=&quot;button&quot; onclick=&quot;alert(&apos;Hello World!&apos;)&quot;&gt;Click Me! &lt;/button&gt;
-</code></pre><p> 5.* HTML5新增表单元素<br>      datalist 和 option联用。以达到选择开发者提供的选项的操作目的<br>       <input list="browsers"><br>       <datalist id="browsers"><br>       <option value="Internet Explorer"><br>       </option><option value="Firefox"><br>       </option><option value="Chrome"><br>       </option><option value="Opera"><br>       </option><option value="Safari"><br>      </option></datalist><br>（注意：input list属性必须存在，且必须和datalist元素的id统一！！！）</p>
-
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><em>前一段时间一直自学javascript语法，发现作为基础的排序算法还没有实践过，作为面试重点，现在罗列三种排序算法的具体代码</em></p>
+<a id="more"></a>
+<h4 id="普通排序："><a href="#普通排序：" class="headerlink" title="普通排序："></a>普通排序：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function sort(arr)&#123;</div><div class="line"> var index = 0;</div><div class="line"> for (var i = 0; i&lt; arr.length;i++)&#123;</div><div class="line">   for(var j=i+1;j&lt;arr.length;j++)&#123;</div><div class="line">   if(arr[i]&gt;arr[j])&#123;</div><div class="line">        var b = arr[j];</div><div class="line">        arr[j] = arr[i];</div><div class="line">        arr[i] = b;</div><div class="line">        &#125;</div><div class="line">   else&#123;continue;&#125;</div><div class="line">      &#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">return arr;</div><div class="line"></div><div class="line">&#125;</div><div class="line">var arr1= [2,3,6,1,6,8,9,0];</div><div class="line">console.log(sort(arr1));</div></pre></td></tr></table></figure>
+<h4 id="冒泡排序："><a href="#冒泡排序：" class="headerlink" title="冒泡排序："></a>冒泡排序：</h4><p><em>重点一句话，外层管冒几次，内层管冒到哪儿：（请原谅我的函数命名没有使用驼峰原则）</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function bubblesort(arr)&#123;</div><div class="line">  var index = 0;</div><div class="line">  for(var i =0; i&lt;arr.length;i++)&#123;</div><div class="line">   for(var j = 0;j&lt;arr.length-i-1;j++)&#123;</div><div class="line">     if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">          var b =arr[j+1];</div><div class="line">          arr[j+1]= arr[j];</div><div class="line">          arr[j]= b;</div><div class="line"></div><div class="line">         &#125;</div><div class="line"></div><div class="line">      &#125;</div><div class="line"></div><div class="line">   &#125;</div><div class="line">return arr;</div><div class="line">&#125;</div><div class="line">var arr1= [2,3,6,1,6,8,9,0];</div><div class="line">console.log(bubblesort(arr1));</div></pre></td></tr></table></figure>
+<h4 id="重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组"><a href="#重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组" class="headerlink" title="重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组"></a>重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function quicksort(arr)&#123;</div><div class="line">   if (arr.length&lt;=1)&#123;return arr&#125;</div><div class="line">   var pivotIndex = Math.floor(arr.length / 2);</div><div class="line">　　var pivot = arr.splice(pivotIndex, 1)[0];</div><div class="line">   var left=[];</div><div class="line">   var right=[];</div><div class="line">   for (var i = 0; i &lt; arr.length; i++)&#123;</div><div class="line">　　　　if (arr[i] &lt; pivot) &#123;</div><div class="line">　　　　　　left.push(arr[i]);</div><div class="line">　　　　&#125; else &#123;</div><div class="line">　　　　　　right.push(arr[i]);</div><div class="line">　　　　&#125;</div><div class="line">　　&#125;</div><div class="line">return quicksort(left).concat([pivot],quicksort(right));</div><div class="line">&#125;</div><div class="line">var arr1= [2,3,6,1,6,8,9,0];</div><div class="line">console.log(quicksort(arr1));</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
   <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-目的"><span class="toc-text">1.目的</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-HTML表单元素"><span class="toc-text">2.HTML表单元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1重要元素"><span class="toc-text">2.1重要元素</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#普通排序："><span class="toc-text">普通排序：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#冒泡排序："><span class="toc-text">冒泡排序：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组"><span class="toc-text">重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组</span></a></li></ol></li></ol></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2017/02/01/blog3/" class="prev">&larr; 上一篇 Javascript 基本功之排序算法</a>
+    <a href="/2017/02/23/firstblog/" class="prev">&larr; 上一篇 Jquery之轮播插件</a>
   
 
   
 
+  
+    <a href="/2017/01/06/blog4/" class="next">下一篇 HTML表单的简单用法 &rarr;</a>
   
 </nav>
 
@@ -192,7 +182,7 @@ The cat was playing in the garden.
 
 
       
-      <div class="ds-thread" data-thread-key="2017/01/06/blog4/" data-title="HTML表单的简单用法" data-url="http://yoursite.com/2017/01/06/blog4/"></div>
+      <div class="ds-thread" data-thread-key="2017/02/01/blog3/" data-title="Javascript 基本功之排序算法" data-url="http://yoursite.com/2017/02/01/blog3/"></div>
       
       
       
