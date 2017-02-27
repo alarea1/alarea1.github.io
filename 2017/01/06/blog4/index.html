@@ -16,9 +16,11 @@
   
   
   
-    <meta name="description" content="前端技术学习blog peilun Qi">
+    <meta name="description" content="#简介及引言
+#1.目的简单说就是html通过表单收集用户信息（即：不同类型数据）并提交后台服务器。
+ 元素定义 HTML 表单，作为表单的外壳把用户输入的不同类型的数据提交到后台。">
   
-  <title>标签 [ 阿伦的前端之路 ]</title>
+  <title>HTML表单的简单用法 [ 阿伦的前端之路 ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -36,6 +38,15 @@
 
 <body>
 <div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2017/02/23/firstblog/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        Jquery之轮播插件
+      </div>
+    </div>
   
   
 </div>
@@ -108,18 +119,67 @@
     <div id="content-inner">
       
       
-  <article id="page">
+  <article id="post">
+    <h1>HTML表单的简单用法</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">Created at 2017-01-06</span>
+      
+        <span id = "post-title-updated">Updated at 2017-02-27</span>
+      
+      
+      
+      <span id = "post-title-tags">
+      Tag
+      
+      
+        
+        
+        <a href="/tags/HTML/">HTML</a>
+      
+      </span>
+      
+    </p>
     
-    
-      <h1 class="center-title">标签</h1>
-      <div class="tag-cloud-tags">
-        <a href="/tags/CSS/" style="font-size: 16px; color: #999">CSS</a> <a href="/tags/HTML/" style="font-size: 32px; color: #444">HTML</a> <a href="/tags/Javascript/" style="font-size: 16px; color: #999">Javascript</a> <a href="/tags/jQuery/" style="font-size: 32px; color: #444">jQuery</a> <a href="/tags/布局/" style="font-size: 16px; color: #999">布局</a>
-      </div>
-    
+    <p>#简介及引言</p>
+<p>#1.目的<br>简单说就是html通过表单收集用户信息（即：不同类型数据）并提交后台服务器。</p>
+<p><form> 元素定义 HTML 表单，作为表单的外壳把用户输入的不同类型的数据提交到后台。<br><a id="more"></a></form></p>
+<p>#2.HTML表单元素<br>HTML 表单包含<em>表单元素</em>。<br>表单元素指的是不同类型的 input 元素、复选框、单选按钮、提交按钮等等。<br>        脉络逻辑：<br>表单——————》重要元素——————》次级重要属性</p>
+<p>###2.1重要元素</p>
+<p>  1.input元素<br>       （基本作用）——————》（属性）<br>             语法：<br>             <input type="👇的小选择" name="xxx" 其他属性blablabla="">XXX<br>            type 属性的有趣小选择<br>                          ——》text<br>                          ——》password</p>
+<pre><code>——》submit
+——》radio
+——》checkbox
+——》button
+</code></pre><p>  2.select元素和嵌套的option元素（可直接举例）</p>
+<pre><code>&lt;select name=&quot;cars&quot;&gt;
+&lt;option value=&quot;volvo&quot;&gt;Volvo&lt;/option&gt;
+&lt;option value=&quot;saab&quot;&gt;Saab&lt;/option&gt;
+&lt;option value=&quot;fiat&quot;&gt;Fiat&lt;/option&gt;
+&lt;option value=&quot;audi&quot;&gt;Audi&lt;/option&gt;
+&lt;/select&gt;
+</code></pre><p> 3.textarea元素（可直接举例）</p>
+<pre><code>&lt;textarea&gt; 元素定义多行输入字段（*文本域*）：
+&lt;textarea name=&quot;message&quot; rows=&quot;10&quot; cols=&quot;30&quot;&gt;
+The cat was playing in the garden.
+&lt;/textarea&gt;
+</code></pre><p> 4.button元素（可直接举例）</p>
+<pre><code>&lt;button type=&quot;button&quot; onclick=&quot;alert(&apos;Hello World!&apos;)&quot;&gt;Click Me! &lt;/button&gt;
+</code></pre><p> 5.* HTML5新增表单元素<br>      datalist 和 option联用。以达到选择开发者提供的选项的操作目的<br>       <input list="browsers"><br>       <datalist id="browsers"><br>       <option value="Internet Explorer"><br>       </option><option value="Firefox"><br>       </option><option value="Chrome"><br>       </option><option value="Opera"><br>       </option><option value="Safari"><br>      </option></datalist><br>（注意：input list属性必须存在，且必须和datalist元素的id统一！！！）</p>
+
   </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
+  <div class="random-toc">
+    <h2>Table of Content</h2>
+    
+  </div>
+</div>
 
   
 <nav id="pagination">
+  
+    <a href="/2017/02/23/firstblog/" class="prev">&larr; Prev post Jquery之轮播插件</a>
   
 
   
@@ -133,7 +193,11 @@
 
 
       
+      <div class="ds-thread" data-thread-key="2017/01/06/blog4/" data-title="HTML表单的简单用法" data-url="http://yoursite.com/2017/01/06/blog4/"></div>
       
+      
+      
+      <div id="disqus_thread"></div>
       
     </div>
   </div>
@@ -150,6 +214,41 @@
 
 </div>
 
+  <script type="text/javascript">
+var duoshuoQuery = {short_name:"alarea1"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+
+
+  <div id="disqus_thread"></div>
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//alarea1.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 
 <div id="user-card">
@@ -300,6 +399,8 @@ var unsplashConfig = {"gravity":"north"};
 var turnoffBackgroundImage = false;
 
 
+
+  turnoffBackgroundImage = true;
 
 
 var backgroundColor = "34495E";
