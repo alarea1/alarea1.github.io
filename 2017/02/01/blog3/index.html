@@ -48,11 +48,11 @@
   
   
     <div class="item next">
-      <a href="/2017/01/06/blog4/">
+      <a href="/2017/01/10/blog5/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
-        HTML表单的简单用法
+        CSS那些事儿1
       </div>
     </div>
   
@@ -129,14 +129,14 @@
   <article id="post">
     <h1>Javascript 基本功之排序算法</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2017-02-01</span>
+      <span id = "post-title-date">Created at 2017-02-01</span>
       
-        <span id = "post-title-updated">修改于 2017-02-27</span>
+        <span id = "post-title-updated">Updated at 2017-02-27</span>
       
       
       
       <span id = "post-title-tags">
-      标签
+      Tag
       
       
         
@@ -155,10 +155,10 @@
 <h4 id="重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组"><a href="#重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组" class="headerlink" title="重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组"></a>重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function quicksort(arr)&#123;</div><div class="line">   if (arr.length&lt;=1)&#123;return arr&#125;</div><div class="line">   var pivotIndex = Math.floor(arr.length / 2);</div><div class="line">　　var pivot = arr.splice(pivotIndex, 1)[0];</div><div class="line">   var left=[];</div><div class="line">   var right=[];</div><div class="line">   for (var i = 0; i &lt; arr.length; i++)&#123;</div><div class="line">　　　　if (arr[i] &lt; pivot) &#123;</div><div class="line">　　　　　　left.push(arr[i]);</div><div class="line">　　　　&#125; else &#123;</div><div class="line">　　　　　　right.push(arr[i]);</div><div class="line">　　　　&#125;</div><div class="line">　　&#125;</div><div class="line">return quicksort(left).concat([pivot],quicksort(right));</div><div class="line">&#125;</div><div class="line">var arr1= [2,3,6,1,6,8,9,0];</div><div class="line">console.log(quicksort(arr1));</div></pre></td></tr></table></figure>
   </article>
   <div class="random-toc-area">
-  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
-  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">Show TOC</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">Hide TOC</button>
   <div class="random-toc">
-    <h2>目录</h2>
+    <h2>Table of Content</h2>
     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#普通排序："><span class="toc-text">普通排序：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#冒泡排序："><span class="toc-text">冒泡排序：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组"><span class="toc-text">重点来了：快速排序！思想是递归，总体思路是先选中间元素，标为pivot，比pivot大的放右边，比pivot小的放左边，然后递归，最后通过concat左右链接在一起返回新数组</span></a></li></ol></li></ol></li></ol>
   </div>
 </div>
@@ -166,13 +166,13 @@
   
 <nav id="pagination">
   
-    <a href="/2017/02/23/firstblog/" class="prev">&larr; 上一篇 Jquery之轮播插件</a>
+    <a href="/2017/02/23/firstblog/" class="prev">&larr; Prev post Jquery之轮播插件</a>
   
 
   
 
   
-    <a href="/2017/01/06/blog4/" class="next">下一篇 HTML表单的简单用法 &rarr;</a>
+    <a href="/2017/01/10/blog5/" class="next">Next post CSS那些事儿1 &rarr;</a>
   
 </nav>
 
