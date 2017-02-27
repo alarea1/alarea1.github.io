@@ -16,9 +16,9 @@
   
   
   
-    <meta name="description" content="手把手教你写轮播">
+    <meta name="description" content="CSS">
   
-  <title>Jquery之轮播插件 [ 阿伦的前端之路 ]</title>
+  <title>CSS那些事儿2 [ 阿伦的前端之路 ]</title>
   
   
     <link rel="shortcut icon" href="/favicon.ico">
@@ -38,21 +38,21 @@
 <div class="side-navigate hide-area">
   
     <div class="item prev">
-      <a href="/2017/02/23/hello-world/">
-        <div class="item-icon"></div>
-      </a>
-      <div class="item-title">
-        Hello World
-      </div>
-    </div>
-  
-  
-    <div class="item next">
       <a href="/2017/02/01/blog3/">
         <div class="item-icon"></div>
       </a>
       <div class="item-title">
         Javascript 基本功之排序算法
+      </div>
+    </div>
+  
+  
+    <div class="item next">
+      <a href="/2017/01/10/blog5/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        CSS那些事儿1
       </div>
     </div>
   
@@ -127,21 +127,12 @@
       
       
   <article id="post">
-    <h1>Jquery之轮播插件</h1>
+    <h1>CSS那些事儿2</h1>
     <p class="page-title-sub">
-      <span id = "post-title-date">撰写于 2017-02-23</span>
+      <span id = "post-title-date">撰写于 2017-01-11</span>
       
-        <span id = "post-title-updated">修改于 2017-02-23</span>
+        <span id = "post-title-updated">修改于 2017-02-27</span>
       
-      
-      <span id = "post-title-categories">分类
-      
-      
-        
-        
-        <a href="/categories/jQuery/">jQuery</a>
-      
-      </span>
       
       
       <span id = "post-title-tags">
@@ -150,103 +141,58 @@
       
         
         
-        <a href="/tags/jQuery/">jQuery</a>
+        <a href="/tags/CSS/">CSS</a>
       
       </span>
       
     </p>
     
-    <p><strong>轮播插件是js最常见的插件之一，本次试验，加入的需求有</strong><br><em>自动播放模式</em><br><em>pre next摁键查看====》2000ms后恢复自动播放模式</em><br><em>跳转模式：点击页面下方预览栏，点击后高亮，之间跳转对应图片， 2000ms后恢复自动播放模式</em><br><a id="more"></a></p>
-<h2 id="1-let’s-shit-out-of-this"><a href="#1-let’s-shit-out-of-this" class="headerlink" title="1.let’s shit out of this!"></a>1.let’s shit out of this!</h2><h3 id="1-1-原理"><a href="#1-1-原理" class="headerlink" title="1.1 原理"></a>1.1 原理</h3><p>想象你通过一扇窗户观察外面跑过的列车，列车可以左右通过，你通过摁键控制火车方向，这里火车就是拍成一排的图片，窗户就是我们观察的实际页面窗口。这里有一个问题：为了满足循环播放，照片不可能是无限长度。<br>解决方法有2:<br>1.操作dom元素，将最后一张图片遍历后移到第一张图片之前，依次类推，但问题是重新绘制dom造成网页刷新，得不偿失。<br>2.将最后一张图片复制到第一张图片之前，原来第一张图片到最后一张图片之后，然后我们制造一个标志位：currentPage 并计数，当点击nextBt，则+1，反之则-1，当到达边界图片时，先显示我们的复制图片，然后直接操作dom元素的css瞬间位移到初始正确位置。<br><em>搞定</em></p>
-<h2 id="2-what-it-looks-like？"><a href="#2-what-it-looks-like？" class="headerlink" title="2.what it looks like？"></a>2.what it looks like？</h2><p>talk is cheap，lets shit the code</p>
-<h4 id="基本页面结构如下"><a href="#基本页面结构如下" class="headerlink" title="基本页面结构如下"></a>基本页面结构如下</h4><pre><code> &lt;body&gt;
- &lt;div class=&quot;carousel-ct&quot;&gt;
-     &lt;ul class=&quot;carousel&quot;&gt;
-         &lt;li&gt;
-             &lt;a href=&quot;#&quot;&gt;![](./img/1.jpg)&lt;/a&gt;
-         &lt;/li&gt;
-         &lt;li&gt;
-             &lt;a href=&quot;#&quot;&gt;![](./img/2.jpg)&lt;/a&gt;
-         &lt;/li&gt;
-         &lt;li&gt;
-             &lt;a href=&quot;#&quot;&gt;![](./img/3.jpg)&lt;/a&gt;
-         &lt;/li&gt;
-         &lt;li&gt;
-             &lt;a href=&quot;#&quot;&gt;![](./img/4.jpg)&lt;/a&gt;
-         &lt;/li&gt;
-         &lt;li&gt;
-             &lt;a href=&quot;#&quot;&gt;![](./img/5.jpg)&lt;/a&gt;
-         &lt;/li&gt;
-         &lt;li&gt;
-             &lt;a href=&quot;#&quot;&gt;![](./img/6.jpg)&lt;/a&gt;
-         &lt;/li&gt;
-     &lt;/ul&gt;
-     &lt;ul class=&quot;thumbnail&quot;&gt;
-         &lt;li class=&quot;active&quot;&gt;![](./img/thumbnail/1.jpg)&lt;/li&gt;
-         &lt;li&gt;![](./img/thumbnail/2.jpg)&lt;/li&gt;
-         &lt;li&gt;![](./img/thumbnail/3.jpg)&lt;/li&gt;
-         &lt;li&gt;![](./img/thumbnail/4.jpg)&lt;/li&gt;
-             &lt;li&gt;![](./img/thumbnail/5.jpg)&lt;/li&gt;
-         &lt;li&gt;![](./img/thumbnail/6.jpg)&lt;/li&gt;
-     &lt;/ul&gt;
-     &lt;a href=&quot;&quot; class=&quot;btnpre&quot;&gt;&lt;i class=&quot;fa fa-chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/a&gt;
- &lt;a href=&quot;&quot; class=&quot;btnnext&quot;&gt;&lt;i class=&quot;fa fa-chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/a&gt;
-&lt;/div&gt;
-</code></pre><p><em>css重要部分（完整部分见下文git链接）：其实虽然也没什么可重要的。。。照屏幕调试而已</em><br>        .carousel-ct{<br>            width: 1000px;<br>            overflow: hidden;<br>            margin:0 auto;<br>            position:relative;<br>            height:560px;<br>        }<br>        .carousel{<br>            width: 6000px;<br>            position:absolute;<br>        }<br>        .carousel&gt;li {<br>            float: left;<br>        }<br>        .carousel img{<br>            width:1000px;<br>        }<br>        .thumbnail{<br>                width: 610px;<br>            position:absolute;<br>            left:50%;<br>            bottom:0px;<br>            transform: translateX(-50%);<br>            z-index:10;</p>
-<pre><code>}
-
-.thumbnail&gt;li{
-        display: inline-block;
-    opacity: 0.5;
-    cursor: progress;
-}
-.thumbnail&gt;li:hover{
-      opacity: 1;
-}
-.thumbnail&gt;li&gt;img{
-    width:80px;
-}
-.active{
-    opacity: 1 !important;
-}
-</code></pre><p>###重点来了！js中的前进，后退，自动播放功能函数_</p>
-<pre><code>function playNext(){
-    $imgCt.animate({left:&apos;-=1000&apos;},
-        function(){
-            curPageIndex++;
-            thumbnail(curPageIndex);
-            if(curPageIndex===imgLength){
-                $imgCt.css({&apos;left&apos;:&apos;-1000px&apos;});
-                curPageIndex=0;
-            }
-        })
-}
-function playPre(){
-    $imgCt.animate({left:&apos;+=1000&apos;},
-        function(){
-            curPageIndex--;
-            thumbnail(curPageIndex);
-            if(curPageIndex&lt;0){
-                $imgCt.css({&apos;left&apos;:-(imgLength*$firstImg.width())});
-                curPageIndex=imgLength-1;
-            }
-        })
-}
-function autoplay(){
- timer = setInterval(function(){playNext();},4000);
-}
-function stopAuto() {
-            clearInterval(timer);
-        }
-function remainplay(){
-    setTimeout(function(){autoplay();},2000);
-}
-function thumbnail(index) {
-            $thumbnail.children().removeClass(&apos;active&apos;);
-            $thumbnail.children().eq(index).addClass(&apos;active&apos;);
-        }
-</code></pre><h2 id="3-预览"><a href="#3-预览" class="headerlink" title="3.预览"></a>3.预览</h2><p><img src="http://upload-images.jianshu.io/upload_images/4289237-7aea27abbd500bf1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="GitHub Mark" title="GitHub Mark"></p>
-<p>查看源码info: <a href="https://github.com/alarea1/carousel" target="_blank" rel="external">github</a><br>查看效果: <a href="https://jsbin.com/bevixusiqa/edit?html,output" target="_blank" rel="external">JSBIN</a></p>
+    <h2 id="块级元素和行内元素分别有哪些？动手测试并列出4条以上的特性区别"><a href="#块级元素和行内元素分别有哪些？动手测试并列出4条以上的特性区别" class="headerlink" title="块级元素和行内元素分别有哪些？动手测试并列出4条以上的特性区别"></a>块级元素和行内元素分别有哪些？动手测试并列出4条以上的特性区别</h2><ul>
+<li>1.块级元素：div , p , form, ul, li , ol, dl, form, address, fieldset, hr, menu, table</li>
+<li>2.行内元素：span, strong, em, br, img , input, label, select, textarea, cite</li>
+<li>区别<ol>
+<li>块级元素占据整行，行内元素不占据整行，可以填充进一行时水平排开<br>2.块级元素内部可以包裹块级和行内元素，而行内元素内部只能包裹行内元素<br>3.块级元素默认宽度与浏览器宽度一样，与内容无关；行内元素宽度只与内容有关；<br>4.行内元素设置width，height无效(可以设置line-height)<br>margin上下无效左右有效，padding上下无效左右有效。</li>
+</ol>
+</li>
+</ul>
+<h2 id="什么是-CSS-继承-哪些属性能继承，哪些不能？"><a href="#什么是-CSS-继承-哪些属性能继承，哪些不能？" class="headerlink" title="什么是 CSS 继承? 哪些属性能继承，哪些不能？"></a>什么是 CSS 继承? 哪些属性能继承，哪些不能？</h2><ul>
+<li>css继承：设置父级元素，子元素的样式自动和父元素样式一致。有些属性支持继承有些不支持</li>
+<li>可以继承属性：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">字体属性</div><div class="line">font、font-family：规定元素的字体系列、font-weight、font-size、font-style：定义字体的风格</div><div class="line">文本系列属性:</div><div class="line">text-indent：文本缩进、text-align：文本水平对齐、line-height：行高、word-spacing、letter-spacing、text-transform：控制文本大小写、direction：规定文本的书写方向</div><div class="line">color：文本颜色</div><div class="line">元素可见性：visibility</div><div class="line">表格布局属性：caption-side、border-collapse、border-spacing、empty-cells、table-layout</div><div class="line">列表布局属性：list-style-type、list-style-image、list-style-position、list-style</div><div class="line">生成内容属性：quotes</div><div class="line">光标属性：cursor</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>不可以继承属性：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">display</div><div class="line">文本类：</div><div class="line">vertical-align：垂直文本对齐</div><div class="line">text-decoration：规定添加到文本的装饰</div><div class="line">text-shadow：文本阴影效果</div><div class="line">white-space：空白符的处理</div><div class="line">unicode-bidi：设置文本的方向</div><div class="line">盒子模型的属性：width、height、margin 、margin-XXX、border、border-XXX、。。。基本都不行</div><div class="line">背景属性：都不行</div><div class="line">定位属性：float、clear、position、top、right、bottom、left、min-width、min-height、max-width、max-height、overflow、clip、z-index</div><div class="line">声音样式属性</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="如何让块级元素水平居中？如何让行内元素水平居中"><a href="#如何让块级元素水平居中？如何让行内元素水平居中" class="headerlink" title="如何让块级元素水平居中？如何让行内元素水平居中?"></a>如何让块级元素水平居中？如何让行内元素水平居中?</h2><table>
+<thead>
+<tr>
+<th>元素类型</th>
+<th>居中方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>块级元素居中</td>
+<td>margin： 0 auto;</td>
+</tr>
+<tr>
+<td>行内元素居中</td>
+<td>text-align : center;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="单行文本溢出怎么办如何实现？"><a href="#单行文本溢出怎么办如何实现？" class="headerlink" title="单行文本溢出怎么办如何实现？"></a>单行文本溢出怎么办如何实现？</h2><p>white-space:nowrap;<br>overflow:hidden;<br>text-overflow:ellipsis;</p>
+<h2 id="px-em-rem有什么区别？"><a href="#px-em-rem有什么区别？" class="headerlink" title="px em rem有什么区别？"></a>px em rem有什么区别？</h2><ul>
+<li>. px 像素px是相对于显示器屏幕分辨率而言的</li>
+<li>. em 相对于当前对象内文本的字体尺寸</li>
+<li>. rem 相对于HTML根元素尺寸大小</li>
+</ul>
+<h2 id="解释下面代码的作用-为什么要加引号-字体里-5b8b-4f53代表什么"><a href="#解释下面代码的作用-为什么要加引号-字体里-5b8b-4f53代表什么" class="headerlink" title="解释下面代码的作用?为什么要加引号? 字体里\5b8b\4f53代表什么?"></a>解释下面代码的作用?为什么要加引号? 字体里\5b8b\4f53代表什么?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">body&#123;</div><div class="line">font: 12px/1.5 tahoma,arial,&apos;Hiragino Sans GB&apos;,&apos;\5b8b\4f53&apos;,sans-serif;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>设定字体大小和字体类型，因为有space如果没有引号，会按照两个元素处理<br>数字和字母代表unicode-对应宋体字体和微软雅黑字体</p>
+<p>编码类题目：<br>1.<a href="https://jsbin.com/yasoko/edit?html,output" target="_blank" rel="external">效果1</a><br>2.<a href="https://jsbin.com/tudage/edit?html,css,output" target="_blank" rel="external">效果2</a><br>3.<a href="https://jsbin.com/vetobol/edit?html,css,output" target="_blank" rel="external">效果3</a><br>4.关于画三角形<br><img src="http://upload-images.jianshu.io/upload_images/4289237-0f5b997969876e8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-01-18 下午6.39.34.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/4289237-d92daef57196606d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="屏幕快照 2017-01-18 下午6.45.55.png"></p>
+<p>5.<a href="http://js.jirengu.com/fededesica/2/edit" target="_blank" rel="external">效果5</a></p>
 
   </article>
   <div class="random-toc-area">
@@ -254,20 +200,20 @@ function thumbnail(index) {
   <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
   <div class="random-toc">
     <h2>目录</h2>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-let’s-shit-out-of-this"><span class="toc-text">1.let’s shit out of this!</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-原理"><span class="toc-text">1.1 原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-what-it-looks-like？"><span class="toc-text">2.what it looks like？</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本页面结构如下"><span class="toc-text">基本页面结构如下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-预览"><span class="toc-text">3.预览</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#块级元素和行内元素分别有哪些？动手测试并列出4条以上的特性区别"><span class="toc-text">块级元素和行内元素分别有哪些？动手测试并列出4条以上的特性区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是-CSS-继承-哪些属性能继承，哪些不能？"><span class="toc-text">什么是 CSS 继承? 哪些属性能继承，哪些不能？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何让块级元素水平居中？如何让行内元素水平居中"><span class="toc-text">如何让块级元素水平居中？如何让行内元素水平居中?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单行文本溢出怎么办如何实现？"><span class="toc-text">单行文本溢出怎么办如何实现？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#px-em-rem有什么区别？"><span class="toc-text">px em rem有什么区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解释下面代码的作用-为什么要加引号-字体里-5b8b-4f53代表什么"><span class="toc-text">解释下面代码的作用?为什么要加引号? 字体里\5b8b\4f53代表什么?</span></a></li></ol>
   </div>
 </div>
 
   
 <nav id="pagination">
   
-    <a href="/2017/02/23/hello-world/" class="prev">&larr; 上一篇 Hello World</a>
+    <a href="/2017/02/01/blog3/" class="prev">&larr; 上一篇 Javascript 基本功之排序算法</a>
   
 
   
 
   
-    <a href="/2017/02/01/blog3/" class="next">下一篇 Javascript 基本功之排序算法 &rarr;</a>
+    <a href="/2017/01/10/blog5/" class="next">下一篇 CSS那些事儿1 &rarr;</a>
   
 </nav>
 
@@ -277,7 +223,7 @@ function thumbnail(index) {
 
 
       
-      <div class="ds-thread" data-thread-key="2017/02/23/firstblog/" data-title="Jquery之轮播插件" data-url="http://yoursite.com/2017/02/23/firstblog/"></div>
+      <div class="ds-thread" data-thread-key="2017/01/11/blog6/" data-title="CSS那些事儿2" data-url="http://yoursite.com/2017/01/11/blog6/"></div>
       
       
       
